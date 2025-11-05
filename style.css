@@ -1,0 +1,325 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #1a1313;
+}
+
+.container {
+  background: linear-gradient(160deg, #4A90E2, #50E3C2);
+  color: #fff;
+  width: 800px;
+  border-radius: 10px;
+  padding: 30px;
+  position: relative;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.container .input-field {
+  z-index: -999;
+  opacity: 0;
+  position: absolute;
+}
+
+.content-box {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content-box .text-of-typing {
+  max-height: 255px;
+  max-width: 600px;
+  overflow-y: auto;
+}
+
+.content-box .text-of-typing::-webkit-scrollbar {
+  width: 0;
+}
+
+.content-box .text-of-typing p {
+  text-align: justify;
+  font-size: 25px;
+  letter-spacing: 1px;
+  word-break: break-all;
+  color: white;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.content-box .content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 17%;
+  text-align: center;
+  line-height: 32px;
+}
+
+.content .result {
+  padding: 19px;
+  border-radius: 10px;
+  background: #ffffff;
+  display: block;
+  text-shadow: none;
+  color: #000;
+}
+
+.content .result li {
+  border-bottom: 1px solid #ccc;
+  list-style: none;
+}
+
+.content .result li:last-child {
+  border-bottom: none;
+}
+
+.result li.time,
+.result li.errors,
+.result li.wpm,
+.result li.cpm {
+  font-size: 17px;
+}
+
+.result li.time p,
+.result li.errors p,
+.result li.wpm p,
+.result li.cpm p {
+  font-weight: 600;
+}
+
+.container button {
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #4A90E2;
+  margin-top: 20px;
+}
+
+.container button:hover {
+  background: #50E3C2;
+}
+
+.text-of-typing p span.correct {
+  color: rgb(15, 235, 15);
+}
+
+.text-of-typing p span.incorrect {
+  color: rgb(236, 25, 25);
+}
+
+.text-of-typing p span.active {
+  color: #979494;
+}
+
+.text-of-typing p span.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: #9af902;
+  animation: blink 1s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 1;
+  }
+}
+
+.text-of-typing p span {
+  position: relative;
+}
+
+/* ==================== RACE TRACK SECTION ==================== */
+.race-track {
+  position: relative;
+  height: 100px;
+  background-color: transparent;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Track path between icons */
+.track-path {
+  position: relative;
+  flex: 1;
+  height: 100px;
+  margin: 0 10px; /* spacing between school and home */
+  background: linear-gradient(#a7d9f5, #9cd3f0);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Asphalt */
+.track-path::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22px;
+  bottom: 22px;
+  background: #2b2b2b;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 4px #3a3a3a;
+  z-index: 0;
+}
+
+/* Dashed center line */
+.track-path::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 3px);
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 32px,
+    #ffd166 32px 64px
+  );
+  filter: drop-shadow(0 0 1px #000);
+  animation: lane-scroll 1s linear infinite;
+  z-index: 0;
+}
+
+@keyframes lane-scroll {
+  to {
+    transform: translateX(-64px);
+  }
+}
+
+
+.race-track::after {
+  top: 42px;
+  opacity: 0.25;
+  transform: scale(1.15);
+  animation-duration: 60s;
+  animation-delay: -12s;
+}
+
+@keyframes cloud-move {
+  to {
+    transform: translateX(160vw);
+  }
+}
+
+/* ==================== BUS ANIMATION ==================== */
+.school,
+.home {
+  font-size: 48px;
+}
+
+.bus {
+  position: absolute;
+  font-size: 48px;
+  left: 0;
+  z-index: 5;
+  transition: left 1s linear;
+  animation: bus-bob 0.9s ease-in-out infinite;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* Bounce effect */
+@keyframes bus-bob {
+  0%, 100% {
+    transform: translateY(0) rotate(0.2deg);
+  }
+  50% {
+    transform: translateY(-2px) rotate(-0.2deg);
+  }
+}
+
+/* Bus shadow */
+.bus::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: -8px;
+  height: 10px;
+  background: radial-gradient(
+    closest-side,
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0)
+  );
+  pointer-events: none;
+}
+
+/* Smoke puff animation */
+.bus::before {
+  content: "";
+  position: absolute;
+  right: 58px;
+  bottom: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0)
+  );
+  opacity: 0;
+  animation: bus-smoke 1.6s linear infinite;
+  filter: blur(0.6px);
+}
+
+@keyframes bus-smoke {
+  0% {
+    transform: translate(0, 0) scale(0.4);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-40px, -20px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Message animations */
+.message,
+.bus-reached-home-message {
+  margin-top: 20px;
+  font-size: 18px;
+  color: red;
+  animation: msg-pop 0.25s ease-out both;
+}
+
+@keyframes msg-pop {
+  from {
+    transform: scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
